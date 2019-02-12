@@ -30,8 +30,17 @@ public void keyPressed(KeyEvent e){
   	 drawing.moveLeft();
   	 System.out.println("pos: " + drawing.x + "," + drawing.y);
   }
-  drawing.reloadImage();
-  }
+  else if(e.getKeyCode() == KeyEvent.VK_SPACE){
+	drawing.attack();
+	System.out.println("attack");
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_S){
+			drawing.spawnEnemy();
+		}
+
+ 	 drawing.reloadImage();
+   
+    }
 
 public void keyReleased(KeyEvent e){
 
