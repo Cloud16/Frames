@@ -138,21 +138,70 @@ public void attackAnimation(){
 	 	public void moveUp(){
 	 		y = y - 5;
 	 		repaint();
+	 		checkCollision();
 	 	}
 	 	public void moveDown(){
 	 		y = y + 5;
 	 		repaint();
+	 		checkCollision();
 	 	}
 	 	public void moveLeft(){
 	 		x = x - 5;
 	 		repaint();
+	 		checkCollision();
 	 	}
 	 	public void moveRight(){
 	 		x = x+ 5;
 	 		repaint();
+	 		checkCollision();
 	 	}
 
+public void checkCollision(){
+		int xChecker = x + width;
+		int yChecker = y;
 
+		for(int x=0; x<monsters.length; x++){
+			boolean collideX = false;
+			boolean collideY = false;
+
+			if(monsters[x]!=null){
+				monsters[x].contact = false;
+
+				if(yChecker > monsters[x].yPos){
+					if(yChecker-monsters[x].yPos < monsters[x].height){
+						collideY = true;
+						System.out.println("collideY");
+					}
+				}
+				else{
+					if(monsters[x].yPos - (yChecker+height) < monsters[x].height){
+						collideY = true;
+						System.out.println("collideY");
+					}
+				}
+
+				if(xChecker > monsters[x].xPos){
+					if((xChecker-width)-monsters[x].xPos < monsters[x].width){
+						collideX = true;
+						System.out.println("collideX");
+					}
+				}
+				else{
+					if(monsters[x].xPos-xChecker < monsters[x].width){
+						collideX = true;
+						System.out.println("collideX");
+					}
+				}
+			}
+
+			if(collideX && collideY){
+				System.out.println("collision!");
+				monsters[x].contact = true;
+
+
+			}
+		}
+	}
 	 public void paintComponent(Graphics g){
 	     super.paintComponent(g);
 	     g.setColor(Color.YELLOW);
@@ -167,5 +216,14 @@ public void attackAnimation(){
 			}
 			}
 		}
-
+public void checkDeath(){
+		for(int c = 0; c < monsters.length; c++){
+			if(monsters[c]!=null){
+				if(!monsters[c].alive){
+					monsters[c] = null;
+				}
+			}			
+		}
+	}
+}
 	      
